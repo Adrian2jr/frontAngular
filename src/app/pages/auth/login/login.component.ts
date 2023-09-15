@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  isLoadingSpinner: boolean = false;
   formLogin: FormGroup = this.fb.group({
     email: ["", [Validators.required]],
     password: ["", [Validators.required]],
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.formLogin.invalid) return this.formLogin.markAllAsTouched();
+    this.isLoadingSpinner = true;
     const { email, password } = this.formLogin.value;
 
     this.authService.login(email, password).subscribe({
@@ -33,9 +35,18 @@ export class LoginComponent implements OnInit {
           const { id, username } = resp;
           localStorage.setItem("user", JSON.stringify({ id, username }));
           this.router.navigate(["/tasks"]);
+          return;
         }
+
+        this.isLoadingSpinner = false;
+        Swal.fire({
+          icon: "error",
+          title: resp.msg,
+          timer: 2000,
+        });
       },
       error: (err) => {
+        this.isLoadingSpinner = false;
         Swal.fire({
           icon: "error",
           title: "Ocurrio un error:",
