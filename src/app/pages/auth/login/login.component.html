@@ -13,7 +13,15 @@
       <section class="inputs-login-section">
         <mat-form-field appearance="outline" class="form-field">
           <mat-label>Correo</mat-label>
-          <input matInput title="correo" formControlName="email" />
+          <input
+            type="text"
+            matInput
+            title="correo"
+            formControlName="email"
+            (keyup.enter)="login()"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+          />
+          <mat-error>El correo es requerido.</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="form-field">
@@ -23,7 +31,9 @@
             matInput
             title="contraseña"
             formControlName="password"
+            (keyup.enter)="login()"
           />
+          <mat-error> La contraseña es requerida. </mat-error>
         </mat-form-field>
 
         <button
