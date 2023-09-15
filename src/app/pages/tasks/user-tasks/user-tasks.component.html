@@ -1,0 +1,111 @@
+<main class="main-container">
+  <div>
+    <h1 class="title">Tareas</h1>
+
+    <div class="middle-container">
+      <form
+        class="new-task-container"
+        (ngSubmit)="onCreateTask()"
+        #createForm="ngForm"
+      >
+        <section>
+          <div class="input-container">
+            <label for="newTaskTitle">Título:</label>
+            <input
+              type="text"
+              id="newTaskTitle"
+              name="newTaskTitle"
+              [(ngModel)]="newTask.title"
+              required
+            />
+          </div>
+          <div class="input-container">
+            <label for="newTaskDescription">Descripción:</label>
+            <textarea
+              id="newTaskDescription"
+              name="newTaskDescription"
+              [(ngModel)]="newTask.description"
+            ></textarea>
+          </div>
+        </section>
+        <button type="submit">Crear Tarea</button>
+      </form>
+
+      <div class="container-tasks">
+        <p class="subtitle"></p>
+        <div *ngFor="let task of tasks">
+          <section class="task-header">
+            <div class="subheader">
+              <h3>{{ task.title }}</h3>
+            </div>
+
+            <div class="checkbox-container">
+              <input
+                class="checkbox-style"
+                title="Marcar como completado"
+                type="checkbox"
+                id="task-{{ task.id }}"
+                name="task-{{ task.id }}"
+                [checked]="task.completed"
+                (change)="onToggleCompleted(task)"
+              />
+
+              <div *ngIf="task.completed" class="completed-message">
+                <p>Completada</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="task-body">
+            <p><strong>Descripcion:</strong> {{ task.description }}</p>
+            <p><strong>Creado en:</strong> {{ task.createdAt | date }}</p>
+          </section>
+          <section class="task-footer">
+            <button
+              type="button"
+              class="delete-button"
+              (click)="deleteTask(task.id)"
+              [disabled]="task.completed"
+            >
+              Eliminar
+            </button>
+            <button
+              type="button"
+              class="edit-button"
+              (click)="editTask(task)"
+              [disabled]="task.completed"
+            >
+              Editar
+            </button>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- <form *ngIf="editingTask" (ngSubmit)="onUpdateTask()" #editForm="ngForm">
+        <h2>Editar Tarea</h2>
+        <input
+          type="hidden"
+          id="taskId"
+          name="taskId"
+          [(ngModel)]="editingTask.id"
+        />
+        <label for="editTaskTitle">Título:</label>
+        <input
+          type="text"
+          id="editTaskTitle"
+          name="editTaskTitle"
+          [(ngModel)]="editingTask.title"
+          required
+        />
+        <label for="editTaskDescription">Descripción:</label>
+        <textarea
+          id="editTaskDescription"
+          name="editTaskDescription"
+          [(ngModel)]="editingTask.description"
+        ></textarea>
+        <button type="submit">Guardar Cambios</button>
+        <button type="button" (click)="cancelEdit()">Cancelar</button>
+      </form> -->
+  </div>
+</main>

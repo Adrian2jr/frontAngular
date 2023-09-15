@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>Editar tarea</h2>
+
+<mat-dialog-content>
+  <form autocomplete="off" [formGroup]="formEditTask" class="form-edit-task">
+    <mat-form-field appearance="outline">
+      <mat-label>Titulo</mat-label>
+      <input title="title" matInput formControlName="title" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea
+        title="description"
+        matInput
+        placeholder="description"
+        formControlName="description"
+      ></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="edit-task-footer">
+  <button
+    type="button"
+    mat-raised-button
+    [mat-dialog-close]="false"
+    color="warn"
+  >
+    Cancelar
+  </button>
+  <button type="button" mat-raised-button color="primary" (click)="editTask()">
+    Guardar
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,208 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.main-container > div {
+  width: 100%;
+  max-width: 550px;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  background-color: white;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.middle-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-task-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.new-task-container > section {
+  display: flex;
+  gap: 1rem;
+}
+
+input,
+textarea {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  padding: 0.2rem;
+}
+
+.new-task-container > button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #1a237e;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  height: max-content;
+}
+
+.new-task-container > button:hover {
+  background-color: #0d47a1;
+}
+
+.container-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.container-tasks > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-style {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.task-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 1.5rem;
+}
+
+.task-footer {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.delete-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #b71c1c;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  height: max-content;
+}
+
+.delete-button:hover {
+  background-color: #7f0000;
+}
+
+.edit-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #1a237e;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  height: max-content;
+}
+
+.edit-button:hover {
+  background-color: #0d47a1;
+}
+
+.completed-message {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+button[disabled]:hover {
+  background-color: #ccc;
+}
+
+@media (max-width: 600px) {
+  .new-task-container > section {
+    flex-wrap: wrap;
+  }
+
+  .new-task-container > section > div > input {
+    padding: 0.6rem;
+  }
+
+  .main-container > div {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .main-container {
+    height: 100vh;
+    background-color: white;
+  }
+
+  .container-tasks {
+    max-height: 300px;
+  }
+}

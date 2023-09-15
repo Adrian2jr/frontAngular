@@ -1,0 +1,43 @@
+<main class="main-login-container">
+  <div class="login-container">
+    <section class="logo">
+      <img src="../../../../assets/img/angularlogo.png" alt="Logo" />
+    </section>
+
+    <form class="login-form" autocomplete="off" [formGroup]="formLogin">
+      <section class="text-login-section">
+        <h1 class="login-title">Bienvenido</h1>
+        <p class="login-subtitle">Ingresa tus datos para iniciar sesión</p>
+      </section>
+
+      <section class="inputs-login-section">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Correo</mat-label>
+          <input matInput title="correo" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Contraseña</mat-label>
+          <input
+            type="password"
+            matInput
+            title="contraseña"
+            formControlName="password"
+          />
+        </mat-form-field>
+
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          (click)="login()"
+        >
+          <div class="button-container">
+            <mat-icon>account_circle</mat-icon>
+            &nbsp;&nbsp;Iniciar Sesión&nbsp;&nbsp;
+          </div>
+        </button>
+      </section>
+    </form>
+  </div>
+</main>

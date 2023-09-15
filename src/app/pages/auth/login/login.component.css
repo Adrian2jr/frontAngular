@@ -1,0 +1,94 @@
+.main-login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.logo {
+  max-width: 80px;
+}
+
+.logo img {
+  width: 100%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.text-login-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.inputs-login-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 600px) {
+  .main-login-container {
+    background-image: url("https://t4.ftcdn.net/jpg/03/35/52/23/360_F_335522345_MI4gH9vj43PtQqlmnTVnMmC4uKv548uG.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .login-container {
+    flex-direction: row-reverse;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0;
+    width: 750px;
+    gap: 2rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+  .logo {
+    max-width: 230px;
+    padding-right: 2rem;
+    margin: 1rem;
+  }
+
+  .login-form {
+    flex: 1;
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    padding: 2rem;
+    border-right: 1px solid lightgray;
+  }
+}

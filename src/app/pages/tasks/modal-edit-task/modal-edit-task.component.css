@@ -1,0 +1,9 @@
+.form-edit-task {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.edit-task-footer {
+  margin-bottom: 0.5rem;
+}
