@@ -1,4 +1,12 @@
 <main class="main-container">
+  <section class="box-header">
+    <button type="button" mat-raised-button>
+      <mat-icon class="button-icon">logout</mat-icon>
+      Logout
+    </button>
+
+    <span class="chip">Usuario: <strong>Adrian1jr</strong></span>
+  </section>
   <div>
     <h1 class="title">Tareas</h1>
 
@@ -81,31 +89,5 @@
         </div>
       </div>
     </div>
-
-    <!-- <form *ngIf="editingTask" (ngSubmit)="onUpdateTask()" #editForm="ngForm">
-        <h2>Editar Tarea</h2>
-        <input
-          type="hidden"
-          id="taskId"
-          name="taskId"
-          [(ngModel)]="editingTask.id"
-        />
-        <label for="editTaskTitle">Título:</label>
-        <input
-          type="text"
-          id="editTaskTitle"
-          name="editTaskTitle"
-          [(ngModel)]="editingTask.title"
-          required
-        />
-        <label for="editTaskDescription">Descripción:</label>
-        <textarea
-          id="editTaskDescription"
-          name="editTaskDescription"
-          [(ngModel)]="editingTask.description"
-        ></textarea>
-        <button type="submit">Guardar Cambios</button>
-        <button type="button" (click)="cancelEdit()">Cancelar</button>
-      </form> -->
   </div>
 </main>

@@ -1,8 +1,9 @@
 .main-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100dvh;
   background-color: #f5f5f5;
 }
 
@@ -15,6 +16,26 @@
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   background-color: white;
+}
+
+.box-header {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.box-header > button {
+  width: max-content;
+}
+
+.chip {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: #1a237e;
+  color: white;
+  width: max-content;
 }
 
 .title {
@@ -181,6 +202,11 @@ button[disabled] {
 
 button[disabled]:hover {
   background-color: #ccc;
+}
+
+.button-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 @media (max-width: 600px) {
