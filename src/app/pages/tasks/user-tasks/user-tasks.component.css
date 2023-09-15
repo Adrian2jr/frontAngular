@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100dvh;
+  min-height: 100vh;
   background-color: #f5f5f5;
 }
 
@@ -224,7 +224,7 @@ button[disabled]:hover {
   }
 
   .main-container {
-    height: 100vh;
+    margin-top: 1rem;
     background-color: white;
   }
 
