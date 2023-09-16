@@ -46,11 +46,11 @@ export class LoginComponent implements OnInit {
         });
       },
       error: (err) => {
+        console.log(err);
         this.isLoadingSpinner = false;
         Swal.fire({
           icon: "error",
-          title: "Ocurrio un error:",
-          text: err.error.msg,
+          text: "Ocurrió un error con el servidor al iniciar sesión",
           timer: 2000,
         });
       },

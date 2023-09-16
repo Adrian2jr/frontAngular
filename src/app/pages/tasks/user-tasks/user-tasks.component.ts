@@ -4,6 +4,7 @@ import { ModalEditTaskComponent } from "../modal-edit-task/modal-edit-task.compo
 import { Task } from "src/app/interfaces/task.interface";
 import { TaskService } from "src/app/services/task.service";
 import { AuthService } from "src/app/services/auth.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 
 @Component({
@@ -15,39 +16,38 @@ export class UserTasksComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     public dialog: MatDialog,
-    private authService: AuthService
-  ) {
-    // this.tasks = taskService.getAllTasks().sort((a, b) => {
-    //   return b.createdAt.getTime() - a.createdAt.getTime();
-    // });
-  }
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) {}
 
   get user() {
     return this.authService.user;
   }
 
+  isLoadingSpinner: boolean = false;
   uid = this.user.id;
   username: string = this.user.username;
   tasks: Task[] = [];
-  newTask: Task = {
-    id: 0,
-    title: "",
-    description: "",
-    completed: false,
-    createdAt: new Date(),
-    userId: this.uid,
-  };
+
+  taskForm: FormGroup = this.fb.group({
+    title: ["", [Validators.required]],
+    description: ["", [Validators.required]],
+  });
 
   ngOnInit() {
     this.getProductsByCategory(this.uid);
   }
 
   async getProductsByCategory(id: number) {
-    this.taskService.getTasksByUserId(id).subscribe({
+    this.isLoadingSpinner = true;
+    this.taskService.getSortedTasksByUserId(id).subscribe({
       next: (data) => {
         this.tasks = data;
+        this.isLoadingSpinner = false;
       },
-      error: () => {
+      error: (err) => {
+        console.log(err);
+        this.isLoadingSpinner = false;
         Swal.fire({
           icon: "error",
           text: "No se pudo cargar las tareas",
@@ -57,12 +57,21 @@ export class UserTasksComponent implements OnInit {
   }
 
   onCreateTask(): void {
-    if (this.newTask.title.trim() === "") {
-      return;
-    }
+    if (this.taskForm.invalid) return this.taskForm.markAllAsTouched();
+    this.isLoadingSpinner = true;
 
-    this.taskService.postNewTask(this.newTask).subscribe({
+    const taskBody: Task = {
+      id: 0,
+      title: this.taskForm.value.title,
+      description: this.taskForm.value.description,
+      completed: false,
+      createdAt: new Date(),
+      userId: this.uid,
+    };
+
+    this.taskService.postNewTask(taskBody).subscribe({
       next: (data) => {
+        this.isLoadingSpinner = false;
         Swal.fire({
           icon: "success",
           text: "Tarea creada correctamente",
@@ -70,13 +79,13 @@ export class UserTasksComponent implements OnInit {
         });
 
         this.tasks.unshift(data.Task);
-        this.newTask.title = "";
-        this.newTask.description = "";
       },
       error: () => {
+        this.isLoadingSpinner = false;
         Swal.fire({
           icon: "error",
           text: "No se pudo crear la tarea",
+          timer: 2000,
         });
       },
     });
@@ -94,6 +103,7 @@ export class UserTasksComponent implements OnInit {
       if (!result) return;
       const { title, description } = result;
 
+      this.isLoadingSpinner = true;
       this.taskService
         .putTask({
           ...task,
@@ -102,6 +112,7 @@ export class UserTasksComponent implements OnInit {
         })
         .subscribe({
           next: (data) => {
+            this.isLoadingSpinner = false;
             Swal.fire({
               icon: "success",
               text: "Tarea editada correctamente",
@@ -117,9 +128,11 @@ export class UserTasksComponent implements OnInit {
           },
 
           error: () => {
+            this.isLoadingSpinner = false;
             Swal.fire({
               icon: "error",
               text: "No se pudo editar la tarea",
+              timer: 2000,
             });
           },
         });
@@ -138,15 +151,24 @@ export class UserTasksComponent implements OnInit {
       reverseButtons: true,
     }).then((result) => {
       if (result.value) {
+        this.isLoadingSpinner = true;
         this.taskService.deleteTask(id).subscribe({
-          next: (data) => {
-            console.log(data);
+          next: () => {
+            Swal.fire({
+              icon: "success",
+              text: "Tarea eliminada correctamente",
+              timer: 2000,
+            });
+
             this.tasks = this.tasks.filter((task) => task.id !== id);
+            this.isLoadingSpinner = false;
           },
           error: () => {
+            this.isLoadingSpinner = false;
             Swal.fire({
               icon: "error",
               text: "No se pudo eliminar la tarea",
+              timer: 2000,
             });
           },
         });
@@ -155,6 +177,7 @@ export class UserTasksComponent implements OnInit {
   }
 
   onToggleCompleted(task: Task): void {
+    this.isLoadingSpinner = true;
     this.taskService
       .putTask({
         ...task,
@@ -163,6 +186,8 @@ export class UserTasksComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.tasks = this.tasks.map((task) => {
+            this.isLoadingSpinner = false;
+
             if (task.id === data.Task.id) {
               return data.Task;
             }
@@ -170,9 +195,11 @@ export class UserTasksComponent implements OnInit {
           });
         },
         error: () => {
+          this.isLoadingSpinner = false;
           Swal.fire({
             icon: "error",
             text: "No se pudo marcar como completada la tarea",
+            timer: 2000,
           });
         },
       });
