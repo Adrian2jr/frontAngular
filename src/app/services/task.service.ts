@@ -1,37 +1,49 @@
 import { Injectable } from "@angular/core";
 import { Task } from "../interfaces/task.interface";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class TaskService {
-  private tasks: Task[] = [
-    {
-      id: 1,
-      title: "App Todo",
-      description:
-        "Realizar la aplicación de tareas con Angular 8 con un backend en .NET 4.8",
-      completed: false,
-      createdAt: new Date(),
-    },
-  ];
+  private baseUrl: string = environment.baseUrl;
 
-  getAllTasks(): Task[] {
-    return this.tasks;
+  constructor(private http: HttpClient) {}
+
+  getTasksByUserId(id: number) {
+    const url = `${this.baseUrl}/tareas/${id}`;
+    const headers = new HttpHeaders();
+    return this.http.get<any>(url, { headers });
   }
 
-  createTask(task: Task): void {
-    this.tasks.push(task);
+  postNewTask(task: Task) {
+    const url = `${this.baseUrl}/tareas`;
+    const body = {
+      title: task.title,
+      description: task.description,
+      completed: task.completed,
+      createdAt: task.createdAt,
+      userId: task.userId,
+    };
+
+    return this.http.post<any>(url, body);
   }
 
-  updateTask(task: Task): void {
-    const index = this.tasks.findIndex((t) => t.id === task.id);
-    if (index !== -1) {
-      this.tasks[index] = task;
-    }
+  putTask(task: Task) {
+    const url = `${this.baseUrl}/tareas`;
+    const body = {
+      title: task.title,
+      description: task.description,
+      completed: task.completed,
+      id: task.id,
+    };
+
+    return this.http.put<any>(url, body);
   }
 
-  deleteTask(id: number): void {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+  deleteTask(id: number) {
+    const url = `${this.baseUrl}/tareas/${id}`;
+    return this.http.delete<any>(url);
   }
 }

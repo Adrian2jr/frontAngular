@@ -1,11 +1,11 @@
 <main class="main-container">
   <section class="box-header">
-    <button type="button" mat-raised-button>
+    <button type="button" mat-raised-button (click)="logout()">
       <mat-icon class="button-icon">logout</mat-icon>
       Logout
     </button>
 
-    <span class="chip">Usuario: <strong>Adrian1jr</strong></span>
+    <span class="chip">Usuario: {{ username }}</span>
   </section>
   <div>
     <h1 class="title">Tareas</h1>
